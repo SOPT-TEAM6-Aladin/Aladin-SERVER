@@ -1,8 +1,8 @@
 import { Router } from "express";
-import userRouter from "./userRouter";
+import basketRouter from "./basketRouter";
 
 const router: Router = Router();
 
-router.use("/user", userRouter);
+router.use("/basket", basketRouter);
 
 export default router;
