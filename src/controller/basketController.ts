@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { basketService } from '../service';
 
 const getBasketList = async (req:Request, res:Response) => {
-    const userId:any = req.header('userId');
+    const userId = req.header('userId');
 
     const data = await basketService.getBasketList(+userId);
 
@@ -21,7 +21,7 @@ const getBasketList = async (req:Request, res:Response) => {
 };
 
 const addToBasket = async (req:Request, res:Response) => {
-    const userId:any = req.header('userId');
+    const userId = req.header('userId');
     const { bookId } = req.body;
     const data = await basketService.addToBasket(+userId, +bookId);
 
