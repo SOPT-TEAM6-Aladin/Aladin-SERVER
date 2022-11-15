@@ -10,6 +10,12 @@ const bookLike = async (bookId: number, userId: number) => {
         }
     })
 
+    const likeCount = await prisma.like.count({
+        where: {
+            book_id: bookId
+        }
+    })
+
     if(!likeData) {
         const newLikeData = await prisma.like.create({
             data: {
@@ -19,7 +25,9 @@ const bookLike = async (bookId: number, userId: number) => {
         })
         const returnData = {
             newLikeData,
+            "likeCount": likeCount,
             "hasLike": true
+
         }
         return returnData;
     }
@@ -31,9 +39,9 @@ const bookLike = async (bookId: number, userId: number) => {
     })
     const returnData = {
         deleteLikeData,
+        "likeCount": likeCount,
         "hasLike": false
     }
-
     return returnData;
 };
 
