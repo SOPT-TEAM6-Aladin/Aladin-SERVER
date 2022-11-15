@@ -7,9 +7,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int     @id(map: "user_pk") @unique(map: "user_id_uindex") @default(autoincrement())
-  userName String
-  age      Int?
-  email    String? @db.VarChar(400)
+model basket {
+  id      Int  @id(map: "basket_pk") @unique(map: "basket_id_uindex") @default(autoincrement())
+  book_id Int
+  user_id Int
+  book    book @relation(fields: [book_id], references: [id], onUpdate: NoAction, map: "basket_book_id_fk")
+  user    user @relation(fields: [user_id], references: [id], onUpdate: NoAction, map: "basket_user_id_fk")
+}
+
+model book {
+  id            Int      @id(map: "book_pk") @unique(map: "book_id_uindex") @default(autoincrement())
+  name          String   @db.VarChar(400)
+  thumbnail     String?  @db.VarChar(600)
+  cover         String   @db.VarChar(600)
+  description   String
+  summary       String
+  author        String   @db.VarChar(100)
+  painter       String?  @db.VarChar(100)
+  intro         String?  @db.VarChar(500)
+  publisher     String   @db.VarChar(400)
+  price         Int
+  discount_rate Int?
+  content       String   @db.VarChar(500)
+  point         Int
+  topic         Boolean  @default(false)
+  pick          Boolean  @default(false)
+  basket        basket[]
+  like          like[]
+}
+
+model like {
+  id      Int   @id(map: "like_pk") @unique(map: "like_id_uindex") @default(autoincrement())
+  user_id Int?
+  book_id Int?
+  book    book? @relation(fields: [book_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "like_book_id_fk")
+  user    user? @relation(fields: [user_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "like_user_id_fk")
+}
+
+model user {
+  id     Int      @id(map: "user_pk") @unique(map: "user_id_uindex") @default(autoincrement())
+  basket basket[]
+  like   like[]
 }
