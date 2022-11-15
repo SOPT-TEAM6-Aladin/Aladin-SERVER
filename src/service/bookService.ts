@@ -36,29 +36,31 @@ const bookLike = async (bookId: number, userId: number) => {
 
     return returnData;
 };
+
+
+const getBookList = async () => {
+    const topic = await prisma.book.findMany({
+      where: {
+        topic: true,
+      },
+    });
+  
+    const pick = await prisma.book.findMany({
+      where: {
+        pick: true,
+      },
+    });
+  
+    const data = {
+      topic,
+      pick,
+    };
+    return data;
+  };
+
 const bookService = {
     bookLike,
     getBookList
-};
-
-const getBookList = async () => {
-  const topic = await prisma.book.findMany({
-    where: {
-      topic: true,
-    },
-  });
-
-  const pick = await prisma.book.findMany({
-    where: {
-      pick: true,
-    },
-  });
-
-  const data = {
-    topic,
-    pick,
-  };
-  return data;
 };
 
 export default bookService;
