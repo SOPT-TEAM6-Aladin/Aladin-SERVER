@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const bookLike = async (bookId: number, userId: number) => {
+const likeBook = async (bookId: number, userId: number) => {
     const likeData = await prisma.like.findFirst({
         where: {
             user_id: userId,
@@ -67,7 +67,7 @@ const getBookList = async () => {
   };
 
 const bookService = {
-    bookLike,
+    likeBook,
     getBookList
 };
 

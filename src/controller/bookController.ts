@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { bookService } from '../service';
 
-const bookLike = async (req: Request, res: Response, next: NextFunction) => {
+const likeBook = async (req: Request, res: Response, next: NextFunction) => {
     const { bookId } = req.params;
     const userId = req.header('userId');
 
-    const data = await bookService.bookLike(Number(bookId), Number(userId));
+    const data = await bookService.likeBook(Number(bookId), Number(userId));
 
     if (!data) {
         return res.status(400).json({
@@ -30,7 +30,7 @@ const getBookList = async (req: Request, res: Response) => {
   };
   
 const bookController = {
-    bookLike,
+    likeBook,
     getBookList
 };
 

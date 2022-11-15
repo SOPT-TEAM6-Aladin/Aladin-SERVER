@@ -6,6 +6,6 @@ const { validatorErrorChecker } = require('../middlewares/validator');
 const router:Router = Router();
 
 router.get('/', bookController.getBookList);
-router.put("/:bookId/like", bookController.bookLike);
+router.put("/:bookId/like", bookController.likeBook);
 
 export default router;
