@@ -20,10 +20,10 @@ const getBasketList = async (req:Request, res:Response) => {
     })
 };
 
-const addToBasket = async (req:Request, res:Response) => {
+const addBasket = async (req:Request, res:Response) => {
     const userId = req.header('userId');
     const { bookId } = req.body;
-    const data = await basketService.addToBasket(+userId, +bookId);
+    const data = await basketService.addBasket(+userId, +bookId);
 
     if (!data) {
         res.status(400).json({
@@ -41,7 +41,7 @@ const addToBasket = async (req:Request, res:Response) => {
 
 const basketController = {
     getBasketList,
-    addToBasket
+    addBasket
 }
 
 export default basketController;

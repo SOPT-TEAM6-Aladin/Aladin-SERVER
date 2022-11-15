@@ -3,7 +3,7 @@ import { basket } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const addToBasket = async (userId:number,bookId:number) => {
+const addBasket = async (userId:number,bookId:number) => {
     const data = await prisma.basket.create({
         data: {
             user_id: userId,
@@ -26,7 +26,7 @@ const getBasketList = async (userId:number) => {
 };
 
 const basketService = {
-    addToBasket,
+    addBasket,
     getBasketList
 }
 
