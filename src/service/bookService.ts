@@ -66,9 +66,19 @@ const getBookList = async () => {
     return data;
   };
 
+const getBookInfo = async (bookId: number) => {
+  const book = await prisma.book.findUnique({
+    where: {
+      id: bookId,
+    },
+  });
+  return book;
+};
+
 const bookService = {
-    likeBook,
-    getBookList
+  getBookList,
+  getBookInfo,
+  likeBook
 };
 
 export default bookService;
