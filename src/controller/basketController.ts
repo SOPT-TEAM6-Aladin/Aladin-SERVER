@@ -4,7 +4,7 @@ import { basketService } from '../service';
 const getBasketList = async (req:Request, res:Response) => {
     const userId = req.header('userId');
 
-    const data = await basketService.getBasketList(+userId);
+    const data = await basketService.getBasketList(Number(userId));
 
     if(!data) {
         return res.status(400).json({
@@ -23,12 +23,12 @@ const getBasketList = async (req:Request, res:Response) => {
 const addBasket = async (req:Request, res:Response) => {
     const userId = req.header('userId');
     const { bookId } = req.body;
-    const data = await basketService.addBasket(+userId, +bookId);
+    const data = await basketService.addBasket(Number(userId), Number(bookId));
 
     if (!data) {
-        res.status(400).json({
+        return res.status(400).json({
             status:400,
-            message: "BAD REQUEST"
+            message: "이미 장바구니를 추가 했습니다."
         })
     }
 
