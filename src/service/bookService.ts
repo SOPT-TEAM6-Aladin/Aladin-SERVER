@@ -21,10 +21,17 @@ const likeBook = async (bookId: number, userId: number) => {
             data: {
                 user_id: userId,
                 book_id: bookId
+            },
+            select: {
+              id: true,
+              user_id:true,
+              book_id:true
             }
         })
         const returnData = {
-            newLikeData,
+            "id": newLikeData.id,
+            "user_id": newLikeData.user_id,
+            "book_id": newLikeData.book_id,
             "likeCount": likeCount,
             "hasLike": true
 
@@ -35,10 +42,17 @@ const likeBook = async (bookId: number, userId: number) => {
     const deleteLikeData = await prisma.like.delete({
         where: {
             id: likeData.id
+        },
+        select: {
+          id: true,
+          user_id:true,
+          book_id:true
         }
     })
     const returnData = {
-        deleteLikeData,
+        "id": deleteLikeData.id,
+        "user_id": deleteLikeData.user_id,
+        "book_id": deleteLikeData.book_id,
         "likeCount": likeCount,
         "hasLike": false
     }
