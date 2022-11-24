@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, basket } from '@prisma/client';
 import { basket } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -29,16 +29,33 @@ const addBasket = async (userId:number,bookId:number) => {
 };
 
 const getBasketList = async (userId:number) => {
-    const data = await prisma.basket.findMany({
+    const basketData = await prisma.basket.findMany({
         where: {
             user_id: userId
         },
-        select: {
-            book: true
+        include: {
+            book: {
+                select:{
+                    id: true,
+                    name: true,
+                    cover: true,
+                    painter: true,
+                    price: true,
+                    discount_rate: true,
+                    point: true
+                }
+            }
         }
-    });
-    return data;
+    })
+    return basketData;
+    
+    // const returnDataList = []
+    // for (let i=0; basketData.length; i++) {
+        
+    // }
+    
 };
+
 
 const basketService = {
     addBasket,
