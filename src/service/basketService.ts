@@ -32,7 +32,7 @@ const addBasket = async (userId: number, bookId: number) => {
 const getBasketList = async (userId: number) => {
   const data = await prisma.basket.findMany({
     where: {
-      id: newId,
+      user_id: userId,
     },
     select: {
       book: {
