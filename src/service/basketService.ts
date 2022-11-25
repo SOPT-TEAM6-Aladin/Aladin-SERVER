@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 import { basket } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -27,12 +28,23 @@ const addBasket = async (userId:number,bookId:number) => {
         console.log(error)
         throw error
     }
+    const data = await prisma.basket.create({
+      data: {
+        user_id: userId,
+        book_id: bookId2,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 const getBasketList = async (userId:number) => {
     const data = await prisma.basket.findMany({
         where: {
-            user_id: userId
+          id: newId,
         },
         select: {
             book: {
@@ -56,11 +68,10 @@ const getBasketList = async (userId:number) => {
     // }
     // return dataList
     return data;
-};
+    };
 
-const basketService = {
-    addBasket,
-    getBasketList
-}
+    const basketService = {addBasket,
+  getBasketList,
+};
 
 export default basketService;
